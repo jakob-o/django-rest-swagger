@@ -160,16 +160,16 @@ class DocumentationGenerator(object):
             callback=method_inspector.callback
         )
 
-        if doc_parser.get_response_type() is not None:
-            # Custom response class detected
-            return None
-
         if docstring_serializer is not None:
             self.explicit_serializers.add(docstring_serializer)
             serializer = docstring_serializer
 
         if doc_parser.should_omit_serializer():
             serializer = None
+
+        if doc_parser.get_response_type() is not None:
+            # Custom response class detected
+            return None
 
         return serializer
 
